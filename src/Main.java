@@ -46,12 +46,21 @@ public class Main {
             if (productNumber > products.length - 1 || productNumber < 0) {
                 out.println("Неверный продукт");
                 continue;
-            }
-
-            if (productCount <= 0) {
-                out.println("Неверное количество");
+            } else if (productCount == 0) {
+                purchasesCount[productNumber] = 0;
+                out.println("Вы полностю убрали из корзины: " + products[productNumber]);
+                continue;
+            } else if (productCount < 0) {
+                purchasesCount[productNumber] += productCount;
+                if (purchasesCount[productNumber] < 0) {
+                    purchasesCount[productNumber] = 0;
+                    out.println("Вы полностю убрали из корзины: " + products[productNumber]);
+                } else
+                    out.println("Количество продукта " + products[productNumber] + " уменьшенно на " + productCount + " шт.");
                 continue;
             }
+
+
             out.println(products[productNumber]
                     + " "
                     + (productCount + purchasesCount[productNumber])
@@ -66,7 +75,7 @@ public class Main {
             if (purchasesCount[i] != 0) {
                 out.println(
                         products[i]
-                                + " - "
+                                + ": "
                                 + purchasesCount[i]
                                 + " шт. "
                                 + "("
