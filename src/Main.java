@@ -118,15 +118,17 @@ public class Main {
             } catch (NumberFormatException e) {
                 out.println("Неверный формат ввода");
                 continue;
-            }
-
-            if (productNumber > saleProducts.length - 1 || productNumber < 0) {
-                out.println("Неверный продукт");
+            } if (productCount == 0) {
+                salePurchasesCount[productNumber] = 0;
+                out.println("Вы полностю убрали из корзины: " + saleProducts[productNumber]);
                 continue;
-            }
-
-            if (productCount <= 0) {
-                out.println("Неверное количество");
+            } else if (productCount < 0) {
+                salePurchasesCount[productNumber] += productCount;
+                if (salePurchasesCount[productNumber] < 0) {
+                    salePurchasesCount[productNumber] = 0;
+                    out.println("Вы полностю убрали из корзины: " + salePurchasesCount[productNumber]);
+                } else
+                    out.println("Количество продукта " + saleProducts[productNumber] + " уменьшенно на " + productCount + " шт.");
                 continue;
             }
             out.println(saleProducts[productNumber]
