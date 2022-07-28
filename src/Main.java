@@ -45,12 +45,21 @@ public class Main {
             if (productNumber > products.length - 1 || productNumber < 0) {
                 out.println("Неверный продукт");
                 continue;
-            }
-
-            if (productCount <= 0) {
-                out.println("Неверное количество");
+            } else if (productCount == 0) {
+                purchasesCount[productNumber] = 0;
+                out.println("Вы полностю убрали из корзины: " + products[productNumber]);
+                continue;
+            } else if (productCount < 0) {
+                purchasesCount[productNumber] += productCount;
+                if (purchasesCount[productNumber] < 0) {
+                    purchasesCount[productNumber] = 0;
+                    out.println("Вы полностю убрали из корзины: " + products[productNumber]);
+                } else
+                    out.println("Количество продукта " + products[productNumber] + " уменьшенно на " + productCount + " шт.");
                 continue;
             }
+
+
             out.println(products[productNumber]
                     + " "
                     + (productCount + purchasesCount[productNumber])
@@ -64,7 +73,7 @@ public class Main {
                 sumProducts += prices[i] * purchasesCount[i];
                 out.println(
                         products[i]
-                                + " - "
+                                + ": "
                                 + purchasesCount[i]
                                 + " шт. "
                                 + "("
@@ -109,15 +118,17 @@ public class Main {
             } catch (NumberFormatException e) {
                 out.println("Неверный формат ввода");
                 continue;
-            }
-
-            if (productNumber > saleProducts.length - 1 || productNumber < 0) {
-                out.println("Неверный продукт");
+            } if (productCount == 0) {
+                salePurchasesCount[productNumber] = 0;
+                out.println("Вы полностю убрали из корзины: " + saleProducts[productNumber]);
                 continue;
-            }
-
-            if (productCount <= 0) {
-                out.println("Неверное количество");
+            } else if (productCount < 0) {
+                salePurchasesCount[productNumber] += productCount;
+                if (salePurchasesCount[productNumber] < 0) {
+                    salePurchasesCount[productNumber] = 0;
+                    out.println("Вы полностю убрали из корзины: " + salePurchasesCount[productNumber]);
+                } else
+                    out.println("Количество продукта " + saleProducts[productNumber] + " уменьшенно на " + productCount + " шт.");
                 continue;
             }
             out.println(saleProducts[productNumber]
